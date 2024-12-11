@@ -2,9 +2,9 @@
 	import CursorComponent from './CursorComponent.svelte';
 	import DiagnosticComponent from './DiagnosticComponent.svelte';
 
-	import { SourceText } from '../../../../parser/ng';
+	import { SourceText } from '../../../../ng';
 	import { onMount } from 'svelte';
-	import { getPosition } from './Position';
+	import { getPosition } from '../Position';
 
 	const code = `A1 :: A4
 A5 :: 2    
@@ -150,9 +150,6 @@ A3 :: 1
 		<br />
 
 		<div class="todo">
-			<span class="check"> </span> diagnostic tooltips.
-		</div>
-		<div class="todo">
 			<span class="check"> </span> add selection capability.
 		</div>
 		<div class="todo">
@@ -213,8 +210,8 @@ A3 :: 1
 		</div>
 	{/if}
 
-	{#each diagnostics as { span: { line, column, length } }}
-		<DiagnosticComponent {line} {column} {length} />
+	{#each diagnostics as { span: { line, column, length }, message }}
+		<DiagnosticComponent {line} {column} {length} {message} />
 	{/each}
 
 	<br />
@@ -249,6 +246,7 @@ A3 :: 1
 		padding: 10px;
 		font-family: SuisseIntl-Regular, Helvetica, Arial, sans-serif;
 		font-size: 14px;
+		cursor: default;
 	}
 	.space {
 		width: 700px;
